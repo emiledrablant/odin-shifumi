@@ -1,3 +1,4 @@
+
 let humanScore = 0;
 let computerScore = 0;
 
@@ -45,13 +46,25 @@ function playRound(computerChoice, humanChoice) {
     }
 }
 
-let computerChoice = getComputerChoice();
-let choice;
 
-while (choice === undefined) {
-   choice = getHumanChoice();
+function PlayGame() {
+    for (i = 0; i < 5; i++) {
+        let computerChoice = getComputerChoice();
+        let choice;
+
+        while (choice === undefined) {
+        choice = getHumanChoice();
+}
+        playRound(computerChoice, choice);
+    }
+
+    if (humanScore > computerScore) {
+        console.log("You win! " + humanScore + " points for you and " + computerScore + " points for the computer");
+    } else if (humanScore < computerScore) {
+        console.log("You lose! " + humanScore + " points for you and " + computerScore + " points for the computer");
+    } else {
+        console.log("It's a tie! " + humanScore + " points for you and " + computerScore + " points for the computer");
+    }
 }
 
-playRound(computerChoice, choice);
-
-// console.log("computeur: " + computerChoice + " you : " + choice);
+PlayGame();
