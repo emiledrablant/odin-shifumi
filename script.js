@@ -9,6 +9,20 @@ function getComputerChoice() {
     }
 }
 
-let computerChoice = getComputerChoice();
+function getHumanChoice() {
+    let choice = prompt("Please choose between rock, paper or scissors.");
+    if (choice === "rock" || choice === "paper" || choice === "scissors") {
+        return choice;
+    } else {
+        return undefined;
+    }
+}
 
-console.log(computerChoice);
+let computerChoice = getComputerChoice();
+let choice;
+
+while (choice === undefined) {
+   choice = getHumanChoice();
+}
+
+console.log("computeur: " + computerChoice + " you : " + choice);
