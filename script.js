@@ -48,15 +48,13 @@ function playRound(computerChoice, humanChoice) {
 
 
 function PlayGame() {
-    for (i = 0; i < 5; i++) {
-        let computerChoice = getComputerChoice();
-        let choice;
+    let computerChoice = getComputerChoice();
+    let choice;
 
-        while (choice === undefined) {
-        choice = getHumanChoice();
-}
-        playRound(computerChoice, choice);
+    while (choice === undefined) {
+    choice = getHumanChoice();
     }
+    playRound(computerChoice, choice);
 
     if (humanScore > computerScore) {
         console.log("You win! " + humanScore + " points for you and " + computerScore + " points for the computer");
