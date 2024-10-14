@@ -13,56 +13,83 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let choice = prompt("Please choose between rock, paper or scissors.").toLowerCase();
-    if (choice === "rock" || choice === "paper" || choice === "scissors") {
-        return choice;
-    } else {
-        return undefined;
-    }
-}
-
 function playRound(computerChoice, humanChoice) {
+    const newHistoric = document.createElement("div");
+    let newResult = document.createElement("span");
     if (computerChoice === "rock" && humanChoice === "paper") {
-        console.log("You win: paper beats rock");
+        newResult.textContent = "You win: paper beats rock";
         humanScore += 1;
     } else if (computerChoice === "paper" && humanChoice === "rock") {
-        console.log("You lose: paper beats rock");
+        newResult.textContent = "You lose: paper beats rock";
         computerScore += 1;
     } else if (computerChoice === "paper" && humanChoice === "scissors") {
-        console.log("You win: scissors beats paper");
+        newResult.textContent = "You win: scissors beats paper";
         humanScore += 1;
     } else if (computerChoice === "scissors" && humanChoice === "paper") {
-        console.log("You lose: scissors beats paper");
+        newResult.textContent = "You lose: scissors beats paper";
         computerScore += 1;
     } else if (computerChoice === "scissors" && humanChoice === "rock") {
-        console.log("You win: rock beats scissors");
+        newResult.textContent = "You win: rock beats scissors";
         humanScore += 1;
     } else if (computerChoice === "rock" && humanChoice === "scissors") {
-        console.log("You lose: scissors beats rock");
+        newResult.textContent = "You lose: scissors beats rock";
         computerScore += 1;
     } else {
-        console.log("You both choose the same thing. It's a tie.")
+        newResult.textContent = "You both choose the same thing. It's a tie.";
     }
+
+    newHistoric.appendChild(newResult);
+    list.appendChild(newHistoric);
 }
 
 
-function PlayGame() {
+function playGame(playerChoice) {
     let computerChoice = getComputerChoice();
-    let choice;
+    let choice = playerChoice;
 
-    while (choice === undefined) {
-    choice = getHumanChoice();
-    }
     playRound(computerChoice, choice);
 
-    if (humanScore > computerScore) {
-        console.log("You win! " + humanScore + " points for you and " + computerScore + " points for the computer");
-    } else if (humanScore < computerScore) {
-        console.log("You lose! " + humanScore + " points for you and " + computerScore + " points for the computer");
-    } else {
-        console.log("It's a tie! " + humanScore + " points for you and " + computerScore + " points for the computer");
+    if (computerScore >= 5 || humanScore >= 5) {
+        const newHistoric = document.createElement("div");
+        let newResult = document.createElement("span");
+        const replay = document.createElement("button");
+        replay.textContent = "Click to play again.";
+
+        if (humanScore > computerScore) {
+            newResult.textContent = "You win! " + humanScore + " points for you and " + computerScore + " points for the computer";
+        } else if (humanScore < computerScore) {
+            newResult.textContent = "You lose! " + humanScore + " points for you and " + computerScore + " points for the computer";
+        } else {
+            newResult.textContent = "It's a tie! " + humanScore + " points for you and " + computerScore + " points for the computer";
+        }
+
+        newHistoric.appendChild(newResult);
+        newHistoric.appendChild(replay);
+        list.appendChild(newHistoric);
+
+        replay.addEventListener("click", () => {
+            computerScore = 0;
+            humanScore = 0;
+            while (list.firstChild) {
+                list.removeChild(list.lastChild);
+            }
+        });
     }
 }
 
-PlayGame();
+const rockButton = document.querySelector("#rock");
+const paperButton = document.querySelector("#paper");
+const scissorsButton = document.querySelector("#scissors");
+const list = document.querySelector("#list");
+
+rockButton.addEventListener("click", () => {
+    playGame("rock");
+});
+
+paperButton.addEventListener("click", () => {
+    playGame("paper");
+});
+
+scissorsButton.addEventListener("click", () => {
+    playGame("scissors");
+});
